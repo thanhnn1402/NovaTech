@@ -91,7 +91,7 @@
                             <input type="text" placeholder="Nhập từ khóa cần tìm" class="header-main-search__input">
                             <button type="submit" class="header-main-search__btn-submit">
                                 <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
+                            </button> 
 
                             <div class="header-main-search-history">
                                 <div class="header-main-search-history__heading">
