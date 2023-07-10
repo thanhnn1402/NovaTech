@@ -1,0 +1,175 @@
+.cart-content {
+    padding: 32px 0;
+}
+
+.cart-table th {
+    font-size: 16px;
+    box-sizing: content-box;
+}
+
+.cart-table td {
+    font-size: 14px;
+    box-sizing: content-box;
+}
+
+.cart-product__group {
+    display: flex;
+    max-width: 280px;
+}
+
+.cart-product__img {
+    width: 60px;
+    height: auto;
+}
+
+.cart-product__name {
+    display: inline-block;
+    height: 2.8rem;
+    line-height: 1.4rem;
+    margin-left: 8px;
+    margin-bottom: 0;
+    font-size: 14px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.cart-product__price {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.cart-product__btn-minius {
+    color: var(--text-color);
+    background-color: transparent;
+    border: none;
+}
+
+.cart-product__quantity {
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.cart-product__quantity-input {
+    width: 36px;
+    font-size: 14px;
+    color: var(--text-color);
+    text-align: center;
+    border: none;
+}
+
+.cart-product__quantity-input:focus {
+    outline: none;
+}
+
+.cart-product__btn-plus {
+    color: var(--text-color);
+    background-color: transparent;
+    border: none;
+}
+
+.cart-product__total {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.cart-product__btn-delete {
+    text-decoration: none;
+    font-size: 14px;
+    color: var(--text-color);
+    background-color: transparent;
+    border: none;
+}
+
+.cart-product__btn-delete:hover {
+    color: var(--primary-color);
+}
+
+.cart-product__form-voucher {
+    width: 100%;
+}
+
+.cart-product__form-voucher-body {
+    width: 100%;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.cart-product__form-voucher input {
+    padding: 4px 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex: 1;
+}
+
+.cart-product__form-voucher input:focus {
+    outline: none;
+}
+
+.cart-product__form-voucher button {
+    margin-left: 8px;
+    padding: 4px 12px;
+    font-size: 14px;
+    color: #fff;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 4px;
+}
+
+.cart-product__checkout {
+    margin-top: 16px
+}
+
+.cart-product__checkout h5 {
+    padding:12px 16px;
+    background-color: var(--bg-gray-200);
+}
+
+.cart-product__checkout p {
+    margin-bottom: 6px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.cart-product__checkout p span:first-child {
+    font-weight: bold;
+}
+
+
+.cart-product__checkout .btn-primary{
+    width: 100%;
+    display: block;
+    margin: 24px 8px 8px;
+    padding: 6px 12px;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .cart-product__form-voucher {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .cart-product__form-voucher-title {
+        margin-bottom: 0;
+        padding-left: 16px;
+    }
+
+    .cart-product__form-voucher-body {
+        width: 50%;
+    }
+}
