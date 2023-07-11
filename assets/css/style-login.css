@@ -91,3 +91,9 @@
 .socical-login--google {
     background-color: rgb(233 72 32);
 }
+
+@media(max-width: 576px) {
+    .login-form {
+        box-shadow: none;
+    }
+}

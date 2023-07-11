@@ -6,7 +6,7 @@
     // Chuỗi thông tin xác thực
     $client_id = '40464060386-a84qioi3qelv8bvm8620ek5ren7hchg7.apps.googleusercontent.com';
     $client_secret = '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';
-    $redirect_uri = 'http://localhost/NovaTech/google-login/callback.php';
+    $redirect_uri = 'https://novaitech.000webhostapp.com/google-login/callback.php';
 
     // Tạo URL để chuyển hướng người dùng đến trang đăng nhập Google
     $auth_url = 'https://accounts.google.com/o/oauth2/auth?client_id='.$client_id.'&redirect_uri='.$redirect_uri.'&response_type=code&scope=openid%20email%20profile';
@@ -14,7 +14,7 @@
     // Chuỗi thông tin xác thực
     $appId = '1043513456657921';
     $appSecret = 'f5f1c397602fa904f03df942933ab3e5';
-    $redirectUrl = 'http://localhost/NovaTech/facebook-login/callback.php';
+    $redirectUrl = 'https://novaitech.000webhostapp.com/facebook-login/callback.php';
 
     // Tạo URL để chuyển hướng người dùng đến trang đăng nhập Facebook
     $authUrl = 'https://www.facebook.com/v14.0/dialog/oauth?client_id='.$appId.'&redirect_uri='.$redirectUrl.'&scope=email';
@@ -72,7 +72,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./assets/img/favicon-32x32.png">
-    <title>TIN HỌC NHƯ Ý</title>
+    <title>NovaTech</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"

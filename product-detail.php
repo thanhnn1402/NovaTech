@@ -51,7 +51,7 @@ if (!empty($id)) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./assets/img/favicon-32x32.png">
-    <title>TIN HỌC NHƯ Ý</title>
+    <title>NovaTech</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -124,7 +124,7 @@ if (!empty($id)) {
                                     <i class="fa-regular fa-star"></i>
                                     <span>5 đánh giá</span>
                                 </p>
-                                <p class="product-detail__old-price"><span><?= currency_format($product['don_gia_ban']) ?></span> <span>-<?= $product['phan_tram_khuyen_mai']?>%</span></p>
+                                <p class="product-detail__old-price"><span><?= currency_format($product['don_gia_ban']) ?></span> <span>-<?= $product['phan_tram_khuyen_mai'] ?>%</span></p>
                                 <h6 class="product-detail__new-price"><?= currency_format($product['don_gia_khuyen_mai']) ?></h6>
 
                                 <div class="product-detail__btns">
@@ -400,7 +400,7 @@ if (!empty($id)) {
                                             <p class="product-item__new-price"><?= currency_format($item['don_gia_khuyen_mai']) ?></p>
                                             <p class="product-item__old-price">
                                                 <span><?= currency_format($item['don_gia_ban']) ?></span>
-                                                <span><?=$item['phan_tram_khuyen_mai']?>%</span>
+                                                <span><?= $item['phan_tram_khuyen_mai'] ?>%</span>
                                             </p>
                                         </div>
                                     </a>
@@ -417,7 +417,7 @@ if (!empty($id)) {
 
         <!-- Start footer -->
         <?php
-            require('./partials/footer.php')
+        require('./partials/footer.php')
         ?>
         <!-- End footer -->
     </div>
@@ -479,6 +479,12 @@ if (!empty($id)) {
             autoplaySpeed: 3000,
             prevArrow: '<button type="button" class="related-product__slick-prev"><i class="fa-solid fa-chevron-left"></i></button>',
             nextArrow: '<button type="button" class="related-product__slick-next"><i class="fa-solid fa-chevron-right"></i></button>',
+            responsive: [{
+                breakpoint: 576,
+                settings: {
+                    slidesToShow: 2
+                }
+            }, ]
         });
     </script>
 
@@ -514,7 +520,6 @@ if (!empty($id)) {
     </script>
 
     <script>
-
         $(document).ready(function() {
             $('.btn-add-cart').click(function(e) {
                 const id = $(this).attr('data-id');
@@ -546,7 +551,7 @@ if (!empty($id)) {
 
 
             $('.btn-see-more').click(function(e) {
-                if($('.product-detail__content').hasClass('short')) {
+                if ($('.product-detail__content').hasClass('short')) {
                     $(this).text('Thu gọn');
                     $('.product-detail__content').removeClass('short');
                 } else {

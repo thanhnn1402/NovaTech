@@ -94,7 +94,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./assets/img/favicon-32x32.png">
-    <title>TIN HỌC NHƯ Ý</title>
+    <title>NovaTech</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -162,7 +162,7 @@
                     <div class="col-md-9 profile-content__center">
                         <h5 class="profile-content__title">Thông tin tài khoản</h5>
 
-                        <div class="row mt-4">
+                        <div class="row mt-4 row-profile">
                             <div class="col-md-8">
                                 <form action="" id="form-update" class="profile-content__form" enctype="multipart/form-data" method="POST">
 

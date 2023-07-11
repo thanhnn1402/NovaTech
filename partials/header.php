@@ -1,34 +1,34 @@
-<?php 
-    $categories = array(); 
-    $cart_products = array();
-    $sql_categories = "SELECT * FROM danh_muc";
-    $result_categories = $conn->query($sql_categories);
+<?php
+$categories = array();
+$cart_products = array();
+$sql_categories = "SELECT * FROM danh_muc";
+$result_categories = $conn->query($sql_categories);
 
 
-    if($result_categories->num_rows > 0) {
-        while($row = $result_categories->fetch_assoc()) {
-            $categories[] = $row;
-        }
+if ($result_categories->num_rows > 0) {
+    while ($row = $result_categories->fetch_assoc()) {
+        $categories[] = $row;
+    }
+}
+
+
+$tong_san_pham = 0;
+$tong_tien = 0;
+if (isset($userlogged) && !empty($userlogged)) {
+    $cart_products = get_cart($conn, $userlogged['id']);
+
+
+    foreach ($cart_products as $item) {
+        $tong_san_pham++;
+        $tong_tien += (($item['so_luong'] * $item['don_gia_khuyen_mai']));
     }
 
-
-    $tong_san_pham = 0;
-    $tong_tien = 0;
-    if(isset($userlogged) && !empty($userlogged)) {
-        $cart_products = get_cart($conn, $userlogged['id']);
-
-
-        foreach($cart_products as $item) {
-            $tong_san_pham++; 
-            $tong_tien += (($item['so_luong'] * $item['don_gia_khuyen_mai']));
-        }
-
-        if(stripos($userlogged['avatar'], 'http') == '') {
-            $userlogged['avatar'] = "./storage/uploads/img/" . $userlogged['avatar'];
-        }
+    if (stripos($userlogged['avatar'], 'http') == '') {
+        $userlogged['avatar'] = "./storage/uploads/img/" . $userlogged['avatar'];
     }
+}
 
-    
+
 ?>
 
 <header id="header" class="header">
@@ -78,20 +78,20 @@
     <div class="header-main">
         <div class="container-lg container-fluid">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <a href="./index.php" class="header-main-logo">
                         <img src="./assets/img/logo.png" alt="LOGO" class="header-main-logo__img">
                         <h6 class="header-main-logo__text">NOVATECH</h6>
                     </a>
                 </div>
 
-                <div class="col-lg-4 col-md-4">
+                <div class="col-lg-6 col-md-4">
                     <div class="header-main-search">
                         <form action="" class="header-main-search__form">
                             <input type="text" placeholder="Nhập từ khóa cần tìm" class="header-main-search__input">
                             <button type="submit" class="header-main-search__btn-submit">
                                 <i class="fa-solid fa-magnifying-glass"></i>
-                            </button> 
+                            </button>
 
                             <div class="header-main-search-history">
                                 <div class="header-main-search-history__heading">
@@ -129,14 +129,14 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-5">
+                <div class="col-lg-3 col-md-5">
                     <div class="header-main-menu">
                         <div class="header-main-menu__item header-notify">
                             <a href="#" class="header-main-menu__link">
                                 <span class="header-main-menu__icon">
                                     <i class="fa-regular fa-bell"></i>
                                 </span>
-                                
+
                                 <span class="badge"> </span>
                             </a>
 
@@ -191,26 +191,26 @@
                                     <i class="fa-solid fa-basket-shopping"></i>
                                 </span>
                                 <span class="sum-cart-product">
-                                    (<?=$tong_san_pham?>)
+                                    (<?= $tong_san_pham ?>)
                                 </span>
                             </a>
 
                             <div class="header-cart-menusub">
-                                <?php if(!empty($cart_products)) { ?>
+                                <?php if (!empty($cart_products)) { ?>
 
                                     <h6 class="header-cart-menusub__title">SẢN PHẨM MỚI THÊM</h6>
                                     <ul class="header-cart-menusub__list">
-                                        <?php foreach ($cart_products as $item) { 
-                                                $arr_img = explode("||", $item['hinh_anh']); 
+                                        <?php foreach ($cart_products as $item) {
+                                            $arr_img = explode("||", $item['hinh_anh']);
                                         ?>
                                             <li class="header-cart-menusub__item">
                                                 <a href="" class="header-cart-menusub__link">
-                                                    <img src="./storage/uploads/img/<?=$item['hinh_anh_dai_dien']?>" alt="" class="header-cart-menusub__thumbnail">
+                                                    <img src="./storage/uploads/img/<?= $item['hinh_anh_dai_dien'] ?>" alt="" class="header-cart-menusub__thumbnail">
                                                     <div>
-                                                        <p class="header-cart-menusub__name"><?=$item['ten_sp']?></p>
+                                                        <p class="header-cart-menusub__name"><?= $item['ten_sp'] ?></p>
                                                         <div class="d-flex align-items-center justify-content-between">
-                                                            <span class="header-cart-menusub__quantity">x<?=$item['so_luong']?></span>
-                                                            <span class="header-cart-menusub__price"><?=currency_format($item['don_gia_khuyen_mai'])?></span>
+                                                            <span class="header-cart-menusub__quantity">x<?= $item['so_luong'] ?></span>
+                                                            <span class="header-cart-menusub__price"><?= currency_format($item['don_gia_khuyen_mai']) ?></span>
                                                         </div>
                                                     </div>
                                                 </a>
@@ -220,13 +220,13 @@
                                     <div class="header-cart-menusub__footer">
                                         <div class="header-cart-menusub__footer-heading">
                                             <span>Tổng tiền</span>
-                                            <span class="price-total-cart"><?=currency_format($tong_tien)?></span>
+                                            <span class="price-total-cart"><?= currency_format($tong_tien) ?></span>
                                         </div>
                                         <a href="./cart.php" class="header-cart-menusub__footer-link">Xem giỏ hàng</a>
                                     </div>
 
                                 <?php } else { ?>
-                                    
+
                                     <div class="text-center" style="padding: 100px 0">
                                         <img src="./assets/img/order-empty.png" alt="" class="w-50">
                                         <p class="mt-4">Giỏ hàng chưa có sản phẩm nào</p>
@@ -237,23 +237,23 @@
                         </div>
 
                         <div class="header-main-menu__item header-main-menu__user">
-                            <?php if(empty($userlogged)) {?>
-                                    <a href="./login.php" class="header-main-menu__link">
-                                        <span class="header-main-menu__icon">
-                                            <i class="fa-regular fa-circle-user"></i>
-                                        </span>
-                                        Đăng nhập
-                                    </a>
+                            <?php if (empty($userlogged)) { ?>
+                                <a href="./login.php" class="header-main-menu__link">
+                                    <span class="header-main-menu__icon">
+                                        <i class="fa-regular fa-circle-user"></i>
+                                    </span>
+                                    Đăng nhập
+                                </a>
                             <?php } else { ?>
                                 <p class="header-main-menu__user-info">
-                                    <img src="<?=$userlogged['avatar']?>" alt="" class="header-main-menu__user-avatar">
-                                    <span class="header-main-menu__user-name text-truncate"><?=$userlogged['fullname']?></span>
+                                    <img src="<?= $userlogged['avatar'] ?>" alt="" class="header-main-menu__user-avatar">
+                                    <span class="header-main-menu__user-name text-truncate"><?= $userlogged['fullname'] ?></span>
                                 </p>
 
                                 <div class="header-main-menu__user-menu">
                                     <div class="header-main-menu__user-menu-header">
-                                        <img src="<?=$userlogged['avatar']?>" alt="">
-                                        <span><?=$userlogged['fullname']?></span>
+                                        <img src="<?= $userlogged['avatar'] ?>" alt="">
+                                        <span><?= $userlogged['fullname'] ?></span>
                                     </div>
                                     <div class="header-main-menu__user-menu-body">
                                         <div class="header-main-menu__user-menu-item">
@@ -291,10 +291,10 @@
                                         <a href="logout.php"><i class="fa-solid fa-power-off"></i> Đăng xuất</a>
                                     </div>
                                 </div>
-                            <?php }?>
+                            <?php } ?>
 
-                            
-                            
+
+
                         </div>
                     </div>
                 </div>
@@ -328,6 +328,12 @@
                         </li>
 
                         <li class="header-navbar__item">
+                            <a href="" class="header-navbar__link">
+                                DỊCH VỤ
+                            </a>
+                        </li>
+
+                        <li class="header-navbar__item">
                             <a href="./contact.php" class="header-navbar__link">
                                 LIÊN HỆ
                             </a>
@@ -348,7 +354,9 @@
 </header>
 
 <header class="header-mobile">
-    <div class="topbar-mobile"></div>
+    <div class="topbar-mobile">
+        <span>Sale 50%</span>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-6">
@@ -362,8 +370,10 @@
                 <button class="btn btn-shopping">
                     <i class="fa-solid fa-basket-shopping"></i>
                 </button>
-                <button class="btn"><i class="fa-regular fa-user"></i></button>
-                <button class="btn"><i class="fa-solid fa-bars"></i></button>
+
+                <button class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
             </div>
 
             <div class="col-12">
@@ -372,41 +382,163 @@
                     <button type="submit" class="header-main-search__btn-submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
-
-                    <div class="header-main-search-history">
-                        <div class="header-main-search-history__heading">
-                            <h6 class="header-main-search-history__title">
-                                LỊCH SỬ TÌM KIẾM
-                            </h6>
-                            <a href="" class="header-main-search-history__delete">Xóa lịch sử</a>
-                        </div>
-                        <div class="header-main-search-history__body">
-                            <ul class="header-main-search-history__list">
-                                <li class="header-main-search-history__item">
-                                    <a href="" class="header-main-search-history__link">
-                                        <i class="fa-regular fa-clock"></i>
-                                        Camera
-                                    </a>
-                                </li>
-
-                                <li class="header-main-search-history__item">
-                                    <a href="" class="header-main-search-history__link">
-                                        <i class="fa-regular fa-clock"></i>
-                                        Camera
-                                    </a>
-                                </li>
-
-                                <li class="header-main-search-history__item">
-                                    <a href="" class="header-main-search-history__link">
-                                        <i class="fa-regular fa-clock"></i>
-                                        Camera
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                 </form>
             </div>
         </div>
-    </div>       
+    </div>
 </header>
+
+<!-- Navbar mobile -->
+<div class="offcanvas offcanvas-start w-100" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <?php if (empty($userlogged)) { ?>
+            <a href="./login.php" class="btn btn-outline-light">
+                Đăng nhập / Đăng kí
+            </a>
+        <?php } else { ?>
+            <a href="./profile.php" class="offcanvas-header__user-info">
+                <img src="<?= $userlogged['avatar'] ?>" alt="" class="offcanvas-header__user-avatar">
+                <div>
+                    <p class="offcanvas-header__user-name"><?= $userlogged['fullname'] ?></p>
+                    <p class="offcanvas-header__user-link">
+                        <span>Thông tin cá nhân</span>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                    </p>
+                </div>
+            </a>
+        <?php } ?>
+        
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="offcanvas-body__list">
+            <li class="offcanvas-body__item">
+                <a href="./index.php" class="offcanvas-body__link">
+                    <span>
+                        <i class="fa-solid fa-house offcanvas-body__icon"></i>
+                        Trang chủ
+                    </span>
+
+                    <span><i class="fa-solid fa-chevron-right"></i></span>
+                </a>
+            </li>
+
+            <li class="offcanvas-body__item">
+                <a href="./about.php" class="offcanvas-body__link">
+                    <span>
+                        <i class="fa-solid fa-layer-group offcanvas-body__icon"></i>
+                        Giới thiệu
+                    </span>
+
+                    <span><i class="fa-solid fa-chevron-right"></i></span>
+                </a>
+            </li>
+
+            <li class="offcanvas-body__item">
+                <a href="./products.php" class="offcanvas-body__link">
+                    <span>
+                        <i class="fa-solid fa-computer offcanvas-body__icon"></i>
+                        Sản phẩm
+                    </span>
+
+                    <span><i class="fa-solid fa-chevron-right"></i></span>
+                </a>
+            </li>
+
+            <li class="offcanvas-body__item">
+                <a href="" class="offcanvas-body__link">
+                    <span>
+                        <i class="fa-regular fa-handshake offcanvas-body__icon"></i>
+                        Dịch vụ
+                    </span>
+
+                    <span><i class="fa-solid fa-chevron-right"></i></span>
+                </a>
+            </li>
+
+            <li class="offcanvas-body__item">
+                <a href="./news.php" class="offcanvas-body__link">
+                    <span>
+                        <i class="fa-regular fa-newspaper offcanvas-body__icon"></i>
+                        Tin tức
+                    </span>
+
+                    <span><i class="fa-solid fa-chevron-right"></i></span>
+                </a>
+            </li>
+
+            <li class="offcanvas-body__item">
+                <a href="./contact.php" class="offcanvas-body__link">
+                    <span>
+                        <i class="fa-solid fa-headset offcanvas-body__icon"></i>
+                        Liên hệ
+                    </span>
+
+                    <span><i class="fa-solid fa-chevron-right"></i></span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="seperate"></div>
+
+        <?php if (!empty($userlogged)) { ?>
+            <ul class="offcanvas-body__list">
+                <li class="offcanvas-body__item">
+                    <a href="./notify.php" class="offcanvas-body__link">
+                        <span>
+                            <i class="fa-regular fa-bell offcanvas-body__icon"></i>
+                            Thông báo
+                        </span>
+
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+                </li>
+
+                <li class="offcanvas-body__item">
+                    <a href="./orders.php" class="offcanvas-body__link">
+                        <span>
+                            <i class="fa-solid fa-list-check offcanvas-body__icon"></i>
+                            Quản lý đơn hàng
+                        </span>
+
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+                </li>
+
+                <li class="offcanvas-body__item">
+                    <a href="./address.php" class="offcanvas-body__link">
+                        <span>
+                            <i class="fa-solid fa-map-location-dot offcanvas-body__icon"></i>
+                            Địa chỉ
+                        </span>
+
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+                </li>
+
+                <li class="offcanvas-body__item">
+                    <a href="./change-password.php" class="offcanvas-body__link">
+                        <span>
+                            <i class="fa-solid fa-gears offcanvas-body__icon"></i>
+                            Đổi mật khẩu
+                        </span>
+
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+                </li>
+
+                <li class="offcanvas-body__item">
+                    <a href="./logout.php" class="offcanvas-body__link">
+                        <span>
+                            <i class="fa-solid fa-power-off offcanvas-body__icon"></i>
+                            Đăng xuất
+                        </span>
+
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+                </li>
+            </ul>
+        <?php } ?>
+
+    </div>
+</div>

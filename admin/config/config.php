@@ -1,8 +1,8 @@
 <?php
     session_start();
-    define("DATABASE", "novatech");
-    define("USERNAME", "root");
-    define("PASSWORD", "");
+    define("DATABASE", "id21020306_novatech");
+    define("USERNAME", "id21020306_novatech2023");
+    define("PASSWORD", "987664Aa@");
     define("LOCALHOST", "localhost");
     $conn = new mysqli(LOCALHOST, USERNAME, PASSWORD, DATABASE);
     

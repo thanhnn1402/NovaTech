@@ -4,7 +4,7 @@ session_start();
 // Chuỗi thông tin xác thực
 $client_id = '40464060386-a84qioi3qelv8bvm8620ek5ren7hchg7.apps.googleusercontent.com';
 $client_secret = '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';
-$redirect_uri = 'http://localhost/NovaTech/google-login/callback.php';
+$redirect_uri = 'https://novaitech.000webhostapp.com/google-login/callback.php';
 
 // Lấy mã truy cập từ Google
 if (isset($_GET['code'])) {

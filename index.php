@@ -48,7 +48,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./assets/img/favicon-32x32.png">
-    <title>TIN HỌC NHƯ Ý</title>
+    <title>NovaTech</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -95,25 +95,25 @@
         <div class="sub-banner my-4">
             <div class="container-lg container-fluid">
                 <div class="row">
-                    <div class="col-md-3 col-6">
+                    <div class="col-md-3 col-6 mt-3">
                         <div class="sub-banner__item h-100">
                             <img src="./assets/img/banners/banner-1.jpg" alt="" class="sub-banner__img w-100 h-100 img-fluid rounded-2">
                         </div>
                     </div>
 
-                    <div class="col-md-3 col-6">
+                    <div class="col-md-3 col-6 mt-3">
                         <div class="sub-banner__item h-100">
                             <img src="./assets/img/banners/banner-1.jpg" alt="" class="sub-banner__img w-100 h-100 img-fluid rounded-2">
                         </div>
                     </div>
 
-                    <div class="col-md-3 col-6">
+                    <div class="col-md-3 col-6 mt-3">
                         <div class="sub-banner__item h-100">
                             <img src="./assets/img/banners/banner-1.jpg" alt="" class="sub-banner__img w-100 h-100 img-fluid rounded-2">
                         </div>
                     </div>
 
-                    <div class="col-md-3 col-6">
+                    <div class="col-md-3 col-6 mt-3">
                         <div class="sub-banner__item h-100">
                             <img src="./assets/img/banners/banner-1.jpg" alt="" class="sub-banner__img w-100 h-100 img-fluid rounded-2">
                         </div>
@@ -134,7 +134,7 @@
                             <div class="col-6">
                                 <h5>SẢN PHẨM NỔI BẬT</h5>
                             </div>
-                            <div class="col-6 text-end">
+                            <div class="col-6 d-inline-flex align-items-center justify-content-end">
                                 <a href="./products.php?category=1" class="section__title-link">Xem tất cả <i class="fa-solid fa-chevron-right"></i></a>
                             </div>
                         </div>
@@ -173,13 +173,13 @@
                 <div class="sub-banner my-4">
                     <div class="container-lg container-fluid">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 col-6">
                                 <div class="sub-banner__item h-100">
                                     <img src="./assets/img/banners/banner-1.jpg" alt="" class="sub-banner__img  w-100  h-100 rounded-2">
                                 </div>
                             </div>
         
-                            <div class="col-md-6">
+                            <div class="col-md-6 col-6">
                                 <div class="sub-banner__item h-100">
                                     <img src="./assets/img/banners/banner-1.jpg" alt="" class="sub-banner__img  w-100  h-100 rounded-2">
                                 </div>
@@ -198,8 +198,8 @@
                             <div class="col-md-6">
                                 <h5>LAPTOP</h5>
                             </div>
-                            <div class="col-md-6 text-end">
-                                <a href="./products.php?category=2" class="section__title-link">Xem tất cả <i class="fa-solid fa-chevron-right"></i></a>
+                            <div class="col-md-6 d-inline-flex align-items-center justify-content-end">
+                                <a href="./products.php?category=3" class="section__title-link">Xem tất cả <i class="fa-solid fa-chevron-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -240,7 +240,7 @@
                             <div class="col-md-6">
                                 <h5>CAMERA</h5>
                             </div>
-                            <div class="col-md-6 text-end">
+                            <div class="col-md-6 d-inline-flex align-items-center justify-content-end">
                                 <a href="./products.php?category=3" class="section__title-link">Xem tất cả <i class="fa-solid fa-chevron-right"></i></a>
                             </div>
                         </div>
