@@ -10,7 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 20px;
+    padding: 12px 0;
     background-color: #fff;
     border-radius: 8px
 }
@@ -25,8 +25,7 @@
 
 .orders-content__header-tab {
     position: relative;
-    padding: 8px 0;
-    margin: 0 12px;
+    padding: 8px 20px;
     font-size: 14px;
     font-weight: 500;
     background-color: transparent;
@@ -67,7 +66,7 @@
 
 .orders-content__body {
     margin-top: 16px;
-    padding: 20px;
+    padding: 20px 12px;
     background-color: #fff;
     border-radius: 8px;
 }
@@ -87,4 +86,35 @@
 
 .orders-content__body-panel table {
     font-size: 14px;
+}
+
+@media (max-width: 576px) {
+    .orders-content{
+        padding: 0;
+    }
+
+    .orders-content__center {
+        margin: 24px 0;
+    }
+
+    .orders-content__center-header {
+        display: block !important;
+        overflow-x: auto;
+    }
+
+    .orders-content__header-title {
+        display: none;
+    }
+
+    .orders-content__header-tabs {
+        width: 130%;
+    }
+
+    .orders-content__body-panel {
+        overflow-x: auto;
+    }
+
+    .table-orders {
+        width: 250%;
+    }
 }

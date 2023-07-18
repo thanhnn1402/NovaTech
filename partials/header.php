@@ -1,6 +1,7 @@
 <?php
 $categories = array();
 $cart_products = array();
+$list_search_history = array();
 $sql_categories = "SELECT * FROM danh_muc";
 $result_categories = $conn->query($sql_categories);
 
@@ -19,13 +20,15 @@ if (isset($userlogged) && !empty($userlogged)) {
 
 
     foreach ($cart_products as $item) {
-        $tong_san_pham++;
+        $tong_san_pham += (int)$item['so_luong'];
         $tong_tien += (($item['so_luong'] * $item['don_gia_khuyen_mai']));
     }
 
     if (stripos($userlogged['avatar'], 'http') == '') {
         $userlogged['avatar'] = "./storage/uploads/img/" . $userlogged['avatar'];
     }
+
+    $list_search_history = get_search_history($conn, $userlogged['id']);
 }
 
 
@@ -87,41 +90,29 @@ if (isset($userlogged) && !empty($userlogged)) {
 
                 <div class="col-lg-6 col-md-4">
                     <div class="header-main-search">
-                        <form action="" class="header-main-search__form">
-                            <input type="text" placeholder="Nhập từ khóa cần tìm" class="header-main-search__input">
+                        <form action="./products.php" class="header-main-search__form form-search-js">
+                            <input type="text" name="search" placeholder="Nhập từ khóa cần tìm" class="header-main-search__input">
                             <button type="submit" class="header-main-search__btn-submit">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
 
                             <div class="header-main-search-history">
                                 <div class="header-main-search-history__heading">
-                                    <h6 class="header-main-search-history__title">
+                                    <h6 class="header-main`--search-history__title">
                                         LỊCH SỬ TÌM KIẾM
                                     </h6>
                                     <a href="" class="header-main-search-history__delete">Xóa lịch sử</a>
                                 </div>
                                 <div class="header-main-search-history__body">
                                     <ul class="header-main-search-history__list">
-                                        <li class="header-main-search-history__item">
-                                            <a href="" class="header-main-search-history__link">
-                                                <i class="fa-regular fa-clock"></i>
-                                                Camera
-                                            </a>
-                                        </li>
-
-                                        <li class="header-main-search-history__item">
-                                            <a href="" class="header-main-search-history__link">
-                                                <i class="fa-regular fa-clock"></i>
-                                                Camera
-                                            </a>
-                                        </li>
-
-                                        <li class="header-main-search-history__item">
-                                            <a href="" class="header-main-search-history__link">
-                                                <i class="fa-regular fa-clock"></i>
-                                                Camera
-                                            </a>
-                                        </li>
+                                        <?php foreach ($list_search_history as $item) { ?>
+                                            <li class="header-main-search-history__item">
+                                                <a href="./products.php?search=<?= $item['noi_dung'] ?>" class="header-main-search-history__link">
+                                                    <i class="fa-regular fa-clock"></i>
+                                                    <?= $item['noi_dung'] ?>
+                                                </a>
+                                            </li>
+                                        <?php } ?>
                                     </ul>
                                 </div>
                             </div>
@@ -191,7 +182,7 @@ if (isset($userlogged) && !empty($userlogged)) {
                                     <i class="fa-solid fa-basket-shopping"></i>
                                 </span>
                                 <span class="sum-cart-product">
-                                    (<?= $tong_san_pham ?>)
+                                    <?= $tong_san_pham ?>
                                 </span>
                             </a>
 
@@ -353,6 +344,7 @@ if (isset($userlogged) && !empty($userlogged)) {
 
 </header>
 
+<!-- Header mobile -->
 <header class="header-mobile">
     <div class="topbar-mobile">
         <span>Sale 50%</span>
@@ -360,25 +352,26 @@ if (isset($userlogged) && !empty($userlogged)) {
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <a href="" class="header-mobile__logo">
+                <a href="./index.php" class="header-mobile__logo">
                     <img src="./assets/img/logo.png" alt="LOGO">
                     <p class="text-primary">NOVATECH</p>
                 </a>
             </div>
 
             <div class="col-6 d-flex align-items-center justify-content-end">
-                <button class="btn btn-shopping">
+                <a href="./cart.php" class="btn btn-shopping position-relative">
                     <i class="fa-solid fa-basket-shopping"></i>
-                </button>
+                    <span class="sum-cart-mobile"><?= $tong_san_pham ?></span>
+                </a>
 
-                <button class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                <button class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
 
             <div class="col-12">
                 <form action="" class="header-main-search__form">
-                    <input type="text" placeholder="Nhập từ khóa cần tìm" class="header-main-search__input">
+                    <input type="text" placeholder="Nhập từ khóa cần tìm" class="header-main-search__input" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch" aria-controls="offcanvasSearch">
                     <button type="submit" class="header-main-search__btn-submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
@@ -389,7 +382,7 @@ if (isset($userlogged) && !empty($userlogged)) {
 </header>
 
 <!-- Navbar mobile -->
-<div class="offcanvas offcanvas-start w-100" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+<div class="offcanvas offcanvas-nav-mobile offcanvas-start w-100" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
         <?php if (empty($userlogged)) { ?>
             <a href="./login.php" class="btn btn-outline-light">
@@ -407,7 +400,7 @@ if (isset($userlogged) && !empty($userlogged)) {
                 </div>
             </a>
         <?php } ?>
-        
+
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
@@ -540,5 +533,44 @@ if (isset($userlogged) && !empty($userlogged)) {
             </ul>
         <?php } ?>
 
+    </div>
+</div>
+
+<!-- Offcanvas form search -->
+<div class="offcanvas offcanvas-search-mobile offcanvas-bottom top-0 bottom-0 h-100" tabindex="-1" id="offcanvasSearch" aria-labelledby="offcanvasSearchLabel">
+    <div class="offcanvas-header d-flex align-items-center">
+        <button type="button" class="btn me-3 fs-4 text-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+        <form action="./products.php" class="header-main-search__form form-search-js mt-0">
+            <input type="text" name="search" placeholder="Nhập từ khóa cần tìm" class="header-main-search__input">
+            <button type="submit" class="header-main-search__btn-submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+    </div>
+    <div class="seperate"></div>
+    <div class="offcanvas-body">
+        <div class="header-main-search-history-mobile">
+            <div class="header-main-search-history__heading p-0">
+                <h6 class="header-main`--search-history__title fs-7">
+                    LỊCH SỬ TÌM KIẾM
+                </h6>
+                <a href="" class="header-main-search-history__delete">Xóa lịch sử</a>
+            </div>
+            <div class="header-main-search-history__body">
+                <ul class="header-main-search-history__list">
+                    <?php foreach ($list_search_history as $item) { ?>
+                        <li class="header-main-search-history__item">
+                            <a href="./products.php?search=<?= $item['noi_dung'] ?>" class="header-main-search-history__link">
+                                <i class="fa-regular fa-clock"></i>
+                                <?= $item['noi_dung'] ?>
+                            </a>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>

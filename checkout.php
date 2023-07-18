@@ -158,9 +158,9 @@ if (!empty($userlogged) && isset($_SESSION['products_id'])) {
                                         <li class="checkout-content__right-product-item">
                                             <img src="./storage/uploads/img/<?= $item['hinh_anh_dai_dien'] ?>" alt="" class="checkout-content__right-product-thumbnail">
                                             <div class="checkout-content__right-product-info">
-                                                <p class="checkout-content__right-product-name">
+                                                <a href="./product-detail.php?id=<?= $item['id'] ?>" class="checkout-content__right-product-name">
                                                     <?= $item['ten_sp'] ?>
-                                                </p>
+                                                </a>
                                                 <div class="checkout-content__right-product-group">
                                                     <p class="checkout-content__right-product-quantity">Số lượng: <?= $item['so_luong'] ?></p>
 

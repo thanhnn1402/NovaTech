@@ -5,6 +5,7 @@ session_start();
 $appId = '1043513456657921';
 $appSecret = 'f5f1c397602fa904f03df942933ab3e5';
 $redirectUrl = 'https://novaitech.000webhostapp.com/facebook-login/callback.php';
+// $redirectUrl = 'http://localhost/NovaTech/facebook-login/callback.php';
 
 // Kiểm tra xem Facebook đã phản hồi với mã truy cập hay chưa
 if (isset($_GET['code'])) {

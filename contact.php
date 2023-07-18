@@ -33,6 +33,7 @@ require('./admin/config/config.php');
         require('./partials/header.php')
         ?>
         <!-- End header -->
+        <div class="seperate"></div>
 
         <!-- Start main content -->
         <div class="contact-content">

@@ -3,18 +3,20 @@
 
     $error = array();
 
-    // Chuỗi thông tin xác thực
-    $client_id = '40464060386-a84qioi3qelv8bvm8620ek5ren7hchg7.apps.googleusercontent.com';
-    $client_secret = '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';
+    // Chuỗi thông tin xác thực google
+    $client_id = '40464060386-t7nmio6hrg143doj33fesrn85q8k3lha.apps.googleusercontent.com';
+    $client_secret = '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';
     $redirect_uri = 'https://novaitech.000webhostapp.com/google-login/callback.php';
+    // $redirect_uri = 'http://localhost/NovaTech/google-login/callback.php';
 
     // Tạo URL để chuyển hướng người dùng đến trang đăng nhập Google
     $auth_url = 'https://accounts.google.com/o/oauth2/auth?client_id='.$client_id.'&redirect_uri='.$redirect_uri.'&response_type=code&scope=openid%20email%20profile';
 
-    // Chuỗi thông tin xác thực
+    // Chuỗi thông tin xác thực facebook
     $appId = '1043513456657921';
     $appSecret = 'f5f1c397602fa904f03df942933ab3e5';
     $redirectUrl = 'https://novaitech.000webhostapp.com/facebook-login/callback.php';
+    // $redirectUrl = 'http://localhost/NovaTech/facebook-login/callback.php';
 
     // Tạo URL để chuyển hướng người dùng đến trang đăng nhập Facebook
     $authUrl = 'https://www.facebook.com/v14.0/dialog/oauth?client_id='.$appId.'&redirect_uri='.$redirectUrl.'&scope=email';

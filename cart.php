@@ -50,6 +50,7 @@ if (!empty($userlogged)) {
         require('./partials/header.php')
         ?>
         <!-- End header -->
+        <div class="seperate"></div>
 
         <!-- Start main content -->
         <div class="main-content">
@@ -68,7 +69,7 @@ if (!empty($userlogged)) {
 
                     <div class="row">
                         <div class="col-md-12">
-                            <h5>Giỏ hàng</h5>
+                            <h5 class="cart-content__title">Giỏ hàng</h5>
                         </div>
                     </div>
 
@@ -78,7 +79,7 @@ if (!empty($userlogged)) {
                                 <thead>
                                     <tr>
                                         <th scope="col">
-                                            <input class="form-check-input" type="checkbox" id="checkbox-all" value="" checked>
+                                            <input class="form-check-input checkbox-all-product" type="checkbox" id="checkbox-all1" value="" checked>
                                         </th>
                                         <th scope="col">Sản phẩm</th>
                                         <th scope="col">Đơn giá</th>
@@ -123,6 +124,41 @@ if (!empty($userlogged)) {
                                     <?php } ?>
                                 </tbody>
                             </table>
+
+                            <div class="cart-product-mobile">
+                                <div>
+                                    <input class="form-check-input checkbox-all-product" type="checkbox" id="checkbox-all2" value="" checked>
+                                    <label for="checkbox-all2" class="ms-2 fw-bold">Tất cả</label>
+                                </div>
+                                <div class="seperate my-3"></div>
+                                <?php foreach ($cart_products as $item) {
+                                        $total = $item['so_luong'] * $item['don_gia_khuyen_mai'];
+                                    ?>
+                                        <div class="cart-product-mobile__item d-flex">
+                                            <input class="form-check-input" type="checkbox" form="form-checkout" name="product-id[]" value="<?= $item['id'] ?>" checked>
+                                            <img src="./storage/uploads/img/<?= $item['hinh_anh_dai_dien'] ?>" alt="" class="cart-product__img ms-3">
+                                            <div class="cart-product-mobile__info ms-3">
+                                                <a href="./product-detail.php?id=<?= $item['id'] ?>" class="cart-product__name ms-0 text-decoration-none text-black">
+                                                    <?= $item['ten_sp'] ?>
+                                                </a>
+                                                <p class="cart-product__price visually-hidden"><?= currency_format($item['don_gia_khuyen_mai'])?></p>
+                                                <p class="cart-product__total my-2 text-primary"><?= currency_format($total) ?></p>
+
+                                                <div class="cart-product__quantity">
+                                                    <button class="cart-product__btn-minius" data-id="<?= $item['id'] ?>">
+                                                        <i class="fa-solid fa-minus"></i>
+                                                    </button>
+                                                    <input type="text" min="1" max="1000" value="<?= $item['so_luong'] ?>" name="quantity[]" form="form-checkout" class="cart-product__quantity-input img-thumbnail">
+                                                    <button class="cart-product__btn-plus" data-id="<?= $item['id'] ?>">
+                                                        <i class="fa-solid fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="seperate my-3"></div>
+                                    <?php } ?>
+                            </div>
                         </div>
                         <div class="col-lg-4 col-md-12">
                             <form action="" class="cart-product__form-voucher">
@@ -182,12 +218,19 @@ if (!empty($userlogged)) {
 
     <script>
         $(document).ready(function() {
+            let selector = '';
+            
+            if($(window).width() > 1024) {
+                selector = '.cart-table';
+            } else if($(window).width() < 576) {
+                selector = '.cart-product-mobile';
+            }
 
-            renderSumTotalCart();
+            renderSumTotalCart(selector);
 
             // Tăng / giảm số lượng sản phẩm trong giỏ hàng 
-            const btnsQuantity = $('.cart-product__quantity button');
-            const btnDelete = $('.cart-product__btn-delete');
+            const btnsQuantity = $(`${selector} .cart-product__quantity button`);
+            const btnDelete = $(`${selector} .cart-product__btn-delete`);
 
             btnsQuantity.click(function() {
                 const btn = $(this);
@@ -234,12 +277,12 @@ if (!empty($userlogged)) {
 
                 $(total).text(VND.format(newValue * price));
 
-                renderSumTotalCart();
+                renderSumTotalCart(selector);
             });
 
 
 
-            $('.cart-product__btn-delete').click(function(e) {
+            $(`${selector} .cart-product__btn-delete`).click(function(e) {
                 const id = $(this).attr('data-id');
                 
                 $.ajax({
@@ -261,40 +304,39 @@ if (!empty($userlogged)) {
 
                     $(this).parent().parent().remove();
 
-                    renderSumTotalCart();
+                    renderSumTotalCart(selector);
             })
 
 
             function renderCheckAllSubmitBtn() {
-                const checkedCount = $('input[name="product-id[]"]:checked').length;
+                const checkedCount = $(`${selector} input[name="product-id[]"]:checked`).length;
 
                 if (checkedCount > 0) {
-                    $('.cart-product__checkout-btn').removeClass('disabled');
+                    $(`.cart-product__checkout-btn`).removeClass('disabled');
                 } else {
-                    $('.cart-product__checkout-btn').addClass('disabled');
+                    $(`.cart-product__checkout-btn`).addClass('disabled');
                 }
             }
 
             // Chọn tất cả sản phẩm
-            const checkboxAll = $('#checkbox-all');
-            const productItem = $('input[name="product-id[]"]');
+            const checkboxAll = $(`${selector} input.checkbox-all-product`);
+            const productItem = $(`${selector} input[name="product-id[]"]`);
 
-
-            checkboxAll.change(function() {
+            $(checkboxAll).change(function() {
                 const checked = $(this).prop('checked');
                 productItem.prop('checked', checked);
 
                 renderCheckAllSubmitBtn();
-                renderSumTotalCart();
+                renderSumTotalCart(selector);
             })
 
-            productItem.change(function() {
-                const isCheckAll = productItem.length === $('input[name="product-id[]"]:checked').length;
+            $(productItem).change(function() {
+                const isCheckAll = productItem.length === $(`${selector} input[name="product-id[]"]:checked`).length;
 
                 checkboxAll.prop('checked', isCheckAll);
 
                 renderCheckAllSubmitBtn();
-                renderSumTotalCart();
+                renderSumTotalCart(selector);
             });
         });
 
@@ -303,17 +345,17 @@ if (!empty($userlogged)) {
 
 
         // 
-        function renderSumTotalCart() {
-            const checkedProduct = document.querySelectorAll('input[name="product-id[]"]:checked');
-            const provisionalTotalPrice = document.querySelector('.provisional-total');
-            const sumTotalPrice = document.querySelector('.total-price');
+        function renderSumTotalCart(selector) {
+            const checkedProduct = document.querySelectorAll(`${selector} input[name="product-id[]"]:checked`);
+            const provisionalTotalPrice = document.querySelector(`.provisional-total`);
+            const sumTotalPrice = document.querySelector(`.total-price`);
 
             let total = 0;
 
             checkedProduct.forEach((item, index) => {
                 const parent = item.parentElement.parentElement;
 
-                const productPrice = Number.parseInt(parent.querySelector('.cart-product__total').innerText.replaceAll('.', ''));
+                const productPrice = Number.parseInt(parent.querySelector(`.cart-product__total`).innerText.replaceAll('.', ''));
 
                 total += productPrice;
             });

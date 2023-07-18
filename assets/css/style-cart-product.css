@@ -157,6 +157,12 @@
     border-radius: 8px;
 }
 
+@media (min-width: 1024px) {
+    .cart-product-mobile {
+        display: none;
+    }
+}
+
 @media (min-width: 768px) and (max-width: 1023px) {
     .cart-product__form-voucher {
         display: flex;
@@ -171,5 +177,33 @@
 
     .cart-product__form-voucher-body {
         width: 50%;
+    }
+}
+
+@media (max-width: 576px) {
+    .cart-content{
+        padding: 12px 0;
+    }
+
+    .cart-content__title {
+        display: none;
+    }
+    
+    .cart-table {
+        display: none;
+    }
+    
+    .cart-product__img{
+        width: 85px;
+    }
+
+    .cart-product__form-voucher-body {
+        padding: 0;
+    }
+
+    .cart-product__checkout .btn-primary {
+        margin: 0;
+        margin-top: 16px;
+        padding: 8px 0;
     }
 }

@@ -121,7 +121,7 @@ if (!empty($userlogged)) {
                             <div class="orders-content__body-panel panel active">
                                 <?php if (!empty($don_hang_cho_thanh_toan)) { ?>
 
-                                    <table class="table align-middle text-center">
+                                    <table class="table table-orders align-middle text-center">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Mã đơn hàng</th>
@@ -165,7 +165,7 @@ if (!empty($userlogged)) {
                             <div class="orders-content__body-panel panel">
                                 <?php if (!empty($don_hang_dang_giao_hang)) { ?>
 
-                                    <table class="table align-middle text-center">
+                                    <table class="table table-orders align-middle text-center">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Mã đơn hàng</th>
@@ -209,7 +209,7 @@ if (!empty($userlogged)) {
                             <div class="orders-content__body-panel panel">
                                 <?php if (!empty($don_hang_da_hoan_thanh)) { ?>
 
-                                    <table class="table align-middle text-center">
+                                    <table class="table table-orders align-middle text-center">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Mã đơn hàng</th>
@@ -254,7 +254,7 @@ if (!empty($userlogged)) {
                             <div class="orders-content__body-panel panel">
                                 <?php if (!empty($don_hang_da_huy)) { ?>
 
-                                    <table class="table align-middle text-center">
+                                    <table class="table table-orders align-middle text-center">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Mã đơn hàng</th>

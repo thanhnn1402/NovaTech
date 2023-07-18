@@ -3,6 +3,6 @@
     if(isset($_SESSION['admin_logged'])) {
         unset($_SESSION['admin_logged']);
 
-        header('location: ./auth-login.php');
+        header('location: ../../index.php');
     }
 ?>

@@ -79,6 +79,8 @@ if (!empty($id)) {
         ?>
         <!-- End header -->
 
+        <div class="seperate"></div>
+
         <!-- Start main content -->
         <div class="main-content">
             <div class="section">
@@ -482,7 +484,8 @@ if (!empty($id)) {
             responsive: [{
                 breakpoint: 576,
                 settings: {
-                    slidesToShow: 2
+                    slidesToShow: 2,
+                    arrows: false,
                 }
             }, ]
         });

@@ -105,7 +105,8 @@ function renderCartHeader(listCartProducts) {
                                     <p class="mt-4">Giỏ hàng chưa có sản phẩm nào</p>
                                 </div>`;
 
-        document.querySelector('.sum-cart-product').innerText = `Giỏ hàng (0)`;
+        document.querySelector('.sum-cart-product').innerText = `0`;
+        document.querySelector('.sum-cart-mobile').innerText = `0`;
         
     } else {
         let tongsanpham = 0;
@@ -122,7 +123,7 @@ function renderCartHeader(listCartProducts) {
 
         let html = listCartProducts.map((item, index) => {
             let images = item.hinh_anh.split('||');
-            tongsanpham++;
+            tongsanpham += Number(item.so_luong);
     
             tongtien += (item.so_luong * item.don_gia_ban) - (item.so_luong * item.don_gia_ban * 0.1);
     
@@ -140,7 +141,8 @@ function renderCartHeader(listCartProducts) {
                     </li>`;
         });
     
-        document.querySelector('.sum-cart-product').innerText = `Giỏ hàng (${tongsanpham})`;
+        document.querySelector('.sum-cart-product').innerText = `${tongsanpham}`;
+        document.querySelector('.sum-cart-mobile').innerText = `${tongsanpham}`;
         ul.innerHTML = html.join('');
 
         container.appendChild(h6);
@@ -155,3 +157,91 @@ function renderCartHeader(listCartProducts) {
                                                     </div>`)
     }
 }
+
+// Tìm kiếm sản phẩm
+$('.header-main-search__input').focus(function(event) {
+    $('.header-main-search-history').addClass('open');
+});
+
+let clickedInsideSearchHistory = false;
+
+$('.header-main-search__input').blur(function(event) {
+    if(!clickedInsideSearchHistory) {
+        $('.header-main-search-history').removeClass('open');
+    }
+});
+
+$('.header-main-search-history').mousedown(function(event) {
+    clickedInsideSearchHistory = true;
+});
+
+$('.header-main-search-history').mouseleave(function(event) {
+    clickedInsideSearchHistory = false;
+});
+
+$('.header-main-search__input').keyup(function (e) {
+    let value = $(this).val();
+    let htmls = "";
+
+    $.ajax({
+        url: 'search.php',
+        method: 'POST',
+        dataType: 'json',
+        data: {
+            keyword: value,
+        }
+    }).done(function(data) {
+        
+        if(data.products) {
+            
+            htmls = data.products.map(function(item, index) {
+                return `<li class="header-main-search-history__item">
+                            <a href="./product-detail.php?id=${item.id}" class="header-main-search-history__link">
+                                <i class="fa-regular fa-clock"></i>
+                                ${item.ten_sp}
+                            </a>
+                        </li>`;
+            });
+
+            htmls = htmls.join('');
+    
+        } else if (data.message) {
+            htmls = `<p class="text-center">
+                        ${data.message}
+                    </p>`;
+        } else {
+            
+            if(data.list.length > 0) {
+                htmls = data.list.map(function(item, index) {
+                    return `<li class="header-main-search-history__item">
+                                <a href="./products.php?search=${item.noi_dung}" class="header-main-search-history__link">
+                                    <i class="fa-regular fa-clock"></i>
+                                    ${item.noi_dung}
+                                </a>
+                            </li>`;
+                });
+
+                htmls = htmls.join('');
+            }
+        }
+
+        $('.header-main-search-history__list').html(htmls);
+    }).catch(function(err) {
+        console.log(err);
+    })
+});
+
+// Xử lý submit form tìm kiếm
+const formSearch = document.querySelectorAll('.form-search-js');
+formSearch.forEach((item, index) => {
+    item.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const input = item.querySelector('input');
+        const value = input.value;
+
+        if(value !== '') {
+            item.submit();
+        }
+    })
+})

@@ -4,8 +4,39 @@ require('./admin/config/config.php');
 $products = array();
 
 $category = isset($_GET['category']) ? $_GET['category'] : '';
+if(!empty($category)) {
+    $_SESSION['category'] = $category;
+}
 
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+if(!empty($search)) {
+    $_SESSION['search'] = $search;
+
+    if(!empty($userlogged)) {
+        $sql_check = "SELECT * FROM lich_su_tim_kiem WHERE noi_dung = '{$search}'";
+        $result = $conn->query($sql_check);
+
+        if($result->num_rows == 0) {
+            $sql_insert = "INSERT INTO lich_su_tim_kiem(`id_khach_hang`, `noi_dung`) VALUES (?, ?)";
+            $stmt = $conn->prepare($sql_insert);
+            $stmt->bind_param("is", $userlogged['id'], $search);
+
+            $stmt->execute();
+        }
+    }
+}
+
+//
 $result = $conn->query("SELECT COUNT(id) AS total FROM san_pham")->fetch_assoc();
+
+if(isset($_SESSION['category']) && !empty($category)) {
+    $result = $conn->query("SELECT COUNT(id) AS total FROM san_pham WHERE id_loai_hang = '{$category}'")->fetch_assoc();
+}
+
+if(isset($_SESSION['search']) && !empty($search)) {
+    $result = $conn->query("SELECT COUNT(san_pham.id) AS total FROM san_pham INNER JOIN loai_hang ON san_pham.id_loai_hang = loai_hang.id WHERE ten_sp LIKE '%{$search}%' OR ten_loai LIKE '%{$search}%'")->fetch_assoc();
+}
+
 
 $total_records = $result['total'];
 
@@ -24,13 +55,15 @@ if ($current_page > $total_pages) {
 $start = ($current_page - 1) * $limit;
 
 //
+$sql_products = "SELECT * FROM san_pham LIMIT $start, $limit";
 
-if(!empty($category)) {
+if(isset($_SESSION['category']) && !empty($category)) {
     $sql_products = "SELECT * FROM san_pham WHERE id_loai_hang = '{$category}' LIMIT $start, $limit";
-} else {
-    $sql_products = "SELECT * FROM san_pham LIMIT $start, $limit";
 }
 
+if(isset($_SESSION['search']) && !empty($search)) {
+    $sql_products = "SELECT * FROM san_pham INNER JOIN loai_hang ON san_pham.id_loai_hang = loai_hang.id WHERE ten_sp LIKE '%{$search}%' OR ten_loai LIKE '%{$search}%' LIMIT $start, $limit";
+}
 
 $result_products = $conn->query($sql_products);
 

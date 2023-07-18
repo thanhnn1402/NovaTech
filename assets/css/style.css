@@ -197,20 +197,21 @@
     background-color: var(--primary-color);
 }
 
-.header-main-search__input:focus~.header-main-search-history {
-    display: block;
-}
-
 .header-main-search-history {
     position: absolute;
     width: 100%;
     max-height: 60vh;
     display: none;
-    top: 100%;
+    top: 110%;
     background-color: #fff;
     border-radius: 4px;
     box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+    overflow-y: scroll;
     z-index: 999;
+}
+
+.header-main-search-history.open {
+    display: block;
 }
 
 .header-main-search-history__heading {
@@ -406,6 +407,22 @@
 
 .header-cart {
     position: relative;
+}
+
+.sum-cart-product {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 4px;
+    right: -10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    background-color: var(--primary-color);
+    border-radius: 50%;
 }
 
 .header-cart:hover .header-cart-menusub {
@@ -1351,67 +1368,89 @@
         font-size: 14px;
     }
 
-    .offcanvas-header {
+    .header-main-search-history__item {
+        margin: 0;
+    }
+
+    .header-main-search-history__link {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .sum-cart-mobile {
+        position: absolute;
+        width: 50%;
+        height: 16px;
+        top: 0;
+        right: -6px;
+        font-size: 10px;
+        font-weight: 500;
+        color: #fff;
+        background-color: var(--primary-color);
+        border-radius: 999px;
+    }
+
+    .offcanvas-nav-mobile .offcanvas-header {
         position: relative;
         padding-top: 25%;
         background-color: var(--primary-color-700);
     }
 
-    .btn-close {
+    .offcanvas-nav-mobile .btn-close {
         position: absolute;
         top: 12px;
         right: 12px;
     }
 
-    .offcanvas-header__user-info {
+    .offcanvas-nav-mobile .offcanvas-header__user-info {
         width: 100%;
         display: flex;
         align-items: center;
         text-decoration: none;
     }
 
-    .offcanvas-header__user-avatar {
+    .offcanvas-nav-mobile .offcanvas-header__user-avatar {
         width: 50px;
         height: 50px;
         border-radius: 50%;
     }
 
-    .offcanvas-header__user-info div {
+    .offcanvas-nav-mobile .offcanvas-header__user-info div {
         width: 100%;
     }
 
-    .offcanvas-header__user-info p {
+    .offcanvas-nav-mobile .offcanvas-header__user-info p {
         margin-left: 8px;
         margin-bottom: 0;
         color: #fff;
     }
 
-    .offcanvas-header__user-name {
+    .offcanvas-nav-mobile .offcanvas-header__user-name {
         font-weight: 500;
     }
 
-    .offcanvas-header__user-link {
+    .offcanvas-nav-mobile .offcanvas-header__user-link {
         display: flex;
         align-items: center;
         justify-content: space-between;
         font-size: 12px;
     }
 
-    .offcanvas-body {
+    .offcanvas-nav-mobile .offcanvas-body {
         padding: 0;
     }
 
-    .offcanvas-body__list {
+    .offcanvas-nav-mobile .offcanvas-body__list {
         list-style: none;
         padding-left: 0;
         margin-bottom: 0;
     }
 
-    .offcanvas-body__item {
+    .offcanvas-nav-mobile .offcanvas-body__item {
 
     }
 
-    .offcanvas-body__link {
+    .offcanvas-nav-mobile .offcanvas-body__link {
         padding: 12px 16px;
         display: flex;
         align-items: center;
@@ -1422,7 +1461,7 @@
         border-bottom: 1px solid #ddd;
     }
 
-    .offcanvas-body__icon {
+    .offcanvas-nav-mobile .offcanvas-body__icon {
         width: 20px;
     }
 
@@ -1458,25 +1497,20 @@
         display: none;
     }
 
-    .orders-content{
-        padding: 0;
-    }
-
-    .orders-content__center-header {
-        display: block !important;
-        overflow-x: auto;
-    }
-
-    .orders-content__header-title {
-        display: none;
-    }
-
-    .orders-content__header-tabs {
-        width: 150%;
-    }
-
     /* */
     .row-profile {
         flex-direction: column-reverse;
+    }
+
+    /* */
+    #toast-container {
+        top: auto;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    .toast-inner {
+        max-width: 100%;
     }
 }

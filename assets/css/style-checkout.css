@@ -108,7 +108,9 @@
 }
 
 .checkout-content__right-product-name {
+    text-decoration: none;
     font-size: 14px;
+    color: #333;
 }
 
 .checkout-content__right-product-group {
@@ -205,4 +207,15 @@
 .checkout-content__right-btn:hover {
     color: #fff;
     opacity: .8;
+}
+
+@media (max-width: 576px) {
+    .form-check-pay {
+        width: 100%;
+    }
+
+    .form-check-pay .form-check-label {
+        width: 100%;
+        margin-top: 12px;
+    }
 }
